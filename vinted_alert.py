@@ -1,4 +1,4 @@
-import requests, schedule, time, json
+import requests, schedule, time
 
 # ─── MODIFIE CES 3 VALEURS ───────────────────────────
 BOT_TOKEN  = "8981011090:AAEzR1kuIMYRQsZI9fQq4j5oN4SCg6QWxJ0"
@@ -7,7 +7,18 @@ COOKIE_STR = "viewport_size=1125; datadome=6LzyGzwG9FZbyNdvYcbyN1O2tJsO6zUaXYc5Q
 # ─────────────────────────────────────────────────────
 
 RECHERCHES = [
-    {"mot_cle": "young gto", "prix_min": 50},
+    {"mot_cle": "young gto",                    "prix_min": 50},
+    {"mot_cle": "coq de combat manga",           "prix_max": 40},
+    {"mot_cle": "bakuon retto"},
+    {"mot_cle": "homonculus"},
+    {"mot_cle": "ascension manga",               "prix_max": 45},
+    {"mot_cle": "rokudenashi blues",             "prix_max": 15},
+    {"mot_cle": "rainbow abe"},
+    {"mot_cle": "billy bat",                     "prix_max": 80},
+    {"mot_cle": "dragon ball perfect edition",   "prix_max": 100},
+    {"mot_cle": "fullmetal alchemiste perfect",  "prix_max": 100},
+    {"mot_cle": "integrale manga",               "prix_max": 80},
+    {"mot_cle": "vagabond inoue"},
 ]
 
 HEADERS = {
@@ -26,10 +37,14 @@ def check_vinted():
     for r in RECHERCHES:
         params = {
             "search_text": r["mot_cle"],
-            "price_from": r["prix_min"],
             "order": "newest_first",
             "per_page": 20,
         }
+        if "prix_min" in r:
+            params["price_from"] = r["prix_min"]
+        if "prix_max" in r:
+            params["price_to"] = r["prix_max"]
+
         try:
             res = requests.get(
                 "https://www.vinted.fr/api/v2/catalog/items",
@@ -44,7 +59,7 @@ def check_vinted():
                     prix  = item.get("price", {}).get("amount", "?")
                     url   = f"https://www.vinted.fr/items/{iid}"
                     msg = (
-                        f"🔴 [{r['mot_cle'].upper()}] Nouvelle annonce !\n\n"
+                        f"🔴 <b>[{r['mot_cle'].upper()}]</b> Nouvelle annonce !\n\n"
                         f"📦 {titre}\n"
                         f"💶 {prix}€\n"
                         f"🔗 {url}"
