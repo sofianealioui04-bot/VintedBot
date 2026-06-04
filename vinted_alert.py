@@ -18,7 +18,7 @@ RECHERCHES = [
     {"mot_cle": "dragon ball perfect edition",   "prix_max": 100, "mots_requis": ["dragon", "ball", "perfect"]},
     {"mot_cle": "fullmetal alchemiste perfect",  "prix_max": 100, "mots_requis": ["fullmetal"]},
     {"mot_cle": "integrale manga",               "prix_max": 80,  "mots_requis": ["integrale", "manga"]},
-    {"mot_cle": "vagabond inoue",                                 "mots_requis": ["vagabond"]},
+    {"mot_cle": "vagabond inoue",                                 "mots_requis": ["vagabond Inoue"]},
 ]
 
 # Mots qui indiquent que l'annonce n'est PAS un manga
